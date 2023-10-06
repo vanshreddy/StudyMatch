@@ -1,0 +1,12 @@
+version: '3.4'
+services:
+  frontend:
+    build: ./Frontend
+    ports:
+      - "8000:8000"
+    stdin_open: true
+    tty: true
+  backend:
+    build: ./Backend
+    ports:
+      - "3000:3000"
