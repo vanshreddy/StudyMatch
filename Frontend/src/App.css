@@ -1,23 +1,39 @@
+/* Resetting some default styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Root element styles */
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background-color: #f0f0f0; /* Adding a light background color for better content visibility */
 }
 
+/* Logo styles */
 .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
+  border-radius: 8px; /* Adding border radius for a softer, rounded edge */
 }
+
+/* Logo hover effects */
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
+  cursor: pointer; /* Changing the cursor to pointer on hover for better UX */
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+/* Animation for spinning logo */
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -27,16 +43,31 @@
   }
 }
 
+/* Applying the spinning animation */
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
 }
 
+/* Card styles */
 .card {
   padding: 2em;
+  border: 1px solid #ddd; /* Adding border for definition */
+  border-radius: 8px; /* Adding border radius for rounded edges */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Adding box shadow for a subtle lift effect */
+  background-color: #fff; /* Adding a white background for content separation */
+  margin-bottom: 2em; /* Adding margin for space between cards */
 }
 
+/* Read the docs link styles */
 .read-the-docs {
   color: #888;
+  text-decoration: underline; /* Underlining the link for better recognition as clickable text */
+}
+
+/* Improving hover effect for link */
+.read-the-docs:hover {
+  color: #555; /* Darkening the text color on hover for better interaction feedback */
+  text-decoration: none; /* Removing the underline on hover for a clean effect */
 }
