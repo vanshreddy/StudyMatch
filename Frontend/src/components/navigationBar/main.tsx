@@ -27,6 +27,7 @@ import { BsFillCameraVideoFill } from "react-icons/bs";
 // import { Logo } from "@choc-ui/logo";
 
 export  function NavigationBar(){
+  
   const mobileNav = useDisclosure();
 
   const { toggleColorMode: toggleMode } = useColorMode();
