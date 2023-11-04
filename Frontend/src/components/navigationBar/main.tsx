@@ -1,3 +1,4 @@
+
 import React from "react";
 import {
   Box,
@@ -200,6 +201,109 @@ export  function NavigationBar(){
       </chakra.header>
     </Box>
   );
+
+  
+export function NavigationBar() {
+  const mobileNav = useDisclosure();
+  const { toggleColorMode: toggleMode } = useColorMode();
+  const text = useColorModeValue('dark', 'light');
+  const SwitchIcon = useColorModeValue(FaMoon, FaSun);
+  const bg = useColorModeValue('white', 'gray.800');
+  const ref = React.useRef();
+  const [y, setY] = React.useState(0);
+  const { scrollY } = useViewportScroll();
+
+  React.useEffect(() => {
+    return scrollY.onChange(() => setY(scrollY.get()));
+  }, [scrollY]);
+
+  // Dummy function to determine if the link is active
+  // Replace with your own logic, possibly using react-router-dom's useLocation hook
+  const isActive = (path) => {
+    // Logic to determine if the path is active
+    return false;
+  };
+
+  const DesktopNav = () => {
+    const linkColor = useColorModeValue('gray.600', 'gray.200');
+    const linkHoverColor = useColorModeValue('gray.800', 'white');
+    const menuItems = [
+      { name: 'Home', href: '/' },
+      { name: 'Products', href: '/products' },
+      { name: 'About', href: '/about' },
+      { name: 'Contact', href: '/contact' },
+      // Add other navigation menu items here
+    ];
+
+    return (
+      <HStack spacing={5} display={{ base: 'none', md: 'flex' }}>
+        {menuItems.map((item, index) => (
+          <Link
+            key={index}
+            p={2}
+            href={item.href}
+            fontSize="sm"
+            fontWeight={isActive(item.href) ? 'bold' : 'normal'}
+            color={linkColor}
+            _hover={{
+              textDecoration: 'none',
+              color: linkHoverColor,
+            }}
+          >
+            {item.name}
+          </Link>
+        ))}
+      </HStack>
+    );
+  };
+
+  return (
+    <Box pos="relative" bg={bg}>
+      <chakra.header
+        ref={ref}
+        shadow={y > 0 ? 'sm' : undefined}
+        transition="box-shadow 0.2s"
+        borderTop="6px solid"
+        borderTopColor="brand.400"
+        w="full"
+        overflowY="hidden"
+        zIndex={1}
+      >
+        <Flex h="4.5rem" mx="auto" maxW="1200px" px="6" align="center" justify="space-between">
+          <HStack spacing={5} display={{ base: 'none', md: 'flex' }}>
+            {/* Replace this with your actual logo */}
+            <div>LOGO</div>
+          </HStack>
+          {/* Desktop Navigation Links */}
+          <DesktopNav />
+          <Flex justify="flex-end" align="center" color="gray.400">
+            <IconButton
+              size="md"
+              fontSize="lg"
+              aria-label={`Switch to ${text} mode`}
+              variant="ghost"
+              color="current"
+              ml={{ base: '0', md: '3' }}
+              onClick={toggleMode}
+              icon={<SwitchIcon />}
+            />
+            {/* ...other buttons */}
+          </Flex>
+          <IconButton
+            display={{ base: 'flex', md: 'none' }}
+            aria-label="Open menu"
+            fontSize="20px"
+            onClick={mobileNav.onOpen}
+            icon={<AiOutlineMenu />}
+            variant="outline"
+          />
+        </Flex>
+      </chakra.header>
+      {/* Mobile Navigation */}
+      {/* ...mobileNavContent */}
+    </Box>
+  );
+}
 };
 
 
