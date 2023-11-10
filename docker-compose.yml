@@ -10,3 +10,14 @@ services:
     build: ./Backend
     ports:
       - "3000:3000"
+
+  db:
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: dev_env
+      POSTGRES_USER: dev_env
+      POSTGRES_PASSWORD: dev_env
+    ports:
+      - "5432:5432"
