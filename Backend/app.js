@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const mysql = require("mysql2");
 const bcrypt = require('bcrypt');
 const { body, validationResult } = require('express-validator');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,7 +12,16 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(morgan("dev"));
 
-// Using environment variables to handle sensitive database information.
+// Rate limit configuration
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per window
+});
+
+// Apply rate limiting to all requests
+app.use(limiter);
+
+// Using environment variables for database configuration
 const dbConfig = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
