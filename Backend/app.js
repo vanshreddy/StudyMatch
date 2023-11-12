@@ -3,6 +3,8 @@ const express = require("express");
 const morgan = require("morgan");
 const mysql = require("mysql2");
 const bcrypt = require('bcrypt');
+const { body, validationResult } = require('express-validator');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,7 +12,16 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(morgan("dev"));
 
-// Using environment variables to handle sensitive database information.
+// Rate limit configuration
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per window
+});
+
+// Apply rate limiting to all requests
+app.use(limiter);
+
+// Using environment variables for database configuration
 const dbConfig = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -34,7 +45,15 @@ app.get("/ping", (req, res) => {
 });
 
 // Passwords are hashed before being stored in the database.
-app.post("/register", async (req, res) => {
+app.post("/register", [
+  body('username').isLength({ min: 3 }).trim().escape(),
+  body('password').isLength({ min: 5 })
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   const { username, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10); 
   const query = "INSERT INTO users (username, password) VALUES (?, ?)";
@@ -48,7 +67,15 @@ app.post("/register", async (req, res) => {
 });
 
 // Password is verified against its hashed version in the database.
-app.post("/login", (req, res) => {
+app.post("/login", [
+  body('username').trim().escape(),
+  body('password').exists()
+], (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   const { username, password } = req.body;
   const query = "SELECT password FROM users WHERE username = ?";
   pool.query(query, [username], async (err, results) => {
