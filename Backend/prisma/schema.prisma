@@ -9,9 +9,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Movie {
+model User {
   id        Int      @id @default(autoincrement())
-  title   String @unique
-  description     String
-createdAt DateTime @default(now())
+  email     String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
