@@ -1,5 +1,5 @@
 'use client'
-
+import logo from '../../assets/logo.svg'
 
 import {
   Box,
@@ -57,6 +57,7 @@ export default function WithSubnavigation() {
             color={useColorModeValue('gray.800', 'white')}>
             Study Match
           </Text>
+
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
