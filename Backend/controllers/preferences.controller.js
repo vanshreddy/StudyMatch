@@ -41,6 +41,8 @@ const readPreferences = catchAsync(async (req, res) => {
 
 });
 
+
+
 const updatePreferences = catchAsync(async (req, res) => {
     const id = parseInt(req.params.id);
     const data = req.body;

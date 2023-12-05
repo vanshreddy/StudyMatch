@@ -8,6 +8,8 @@ const { body, validationResult } = require('express-validator');
 
 const prisma = new PrismaClient();
 
+
+
 const readUser = catchAsync(async (req, res) => {
 const id = parseInt(req.params.id);
 try {
