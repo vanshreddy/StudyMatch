@@ -8,6 +8,42 @@ const { body, validationResult } = require('express-validator');
 
 const prisma = new PrismaClient();
 
+const readUser = catchAsync(async (req, res) => {
+const id = parseInt(req.params.id);
+try {
+const user = await prisma.user.findUnique({
+where: {
+id,
+},
+});
+res.status(200).json(user);
+} catch (error) {
+res.status(400).json({ error: 'Unable to fetch user' });
+}
+});
+
+const modifyUser = catchAsync(async (req, res) => {
+body('email', 'Invalid email').isEmail().normalizeEmail(),
+body('password', 'Password must be at least 5 characters long').isLength({ min: 5 }),
+body('name', 'Name is required').notEmpty().trim().escape(),
+
+async (req, res) => {
+const id = parseInt(req.params.id);
+const data = req.body;
+try {
+const updatedUser = await prisma.user.update({
+where: { id },
+data,
+});
+res.status(200).json(updatedUser);
+
+} catch (error) {
+res.status(400).json({ error: 'Unable to update user' });
+}
+
+}
+});
+
 
 const createUser = catchAsync(async (req, res) => {
     // Validation rules
@@ -84,4 +120,7 @@ const loginUser = catchAsync(async (req, res) => {
 
 module.exports = {
     createUser,
+    loginUser,
+    modifyUser,
+    readUser
   };
