@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './main.css';
 // This is a functional component for the Help Page
 function HelpPage() {
   return (
