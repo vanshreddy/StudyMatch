@@ -29,17 +29,16 @@ export default function CourseCard({label,title, description } : {label: string,
         bg="white"
         border={'1px'}
         borderColor="black"
-        boxShadow={useColorModeValue('6px 6px 0 black', '6px 6px 0 cyan')}>
+        boxShadow={useColorModeValue('6px 6px 0 black', '6px 6px 0 cyan')}
+        _hover={{ boxShadow: useColorModeValue('10px 10px 0 black', '10px 10px 0 cyan') }}>
         <Box h={'200px'} borderBottom={'1px'} borderColor="black">
           <Img
-            src={
-              'https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80'
-            }
+            src={imageSrc || 'https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80'}
             roundedTop={'sm'}
             objectFit="cover"
             h="full"
             w="full"
-            alt={'Blog Image'}
+            alt={'Course Image'}
           />
         </Box>
         <Box p={4}>
@@ -54,6 +53,9 @@ export default function CourseCard({label,title, description } : {label: string,
           <Text color={'gray.500'} noOfLines={2}>
             {description}
           </Text>
+          <HStack spacing={1} mt={2}>
+            {renderStars()}
+          </HStack>
         </Box>
         <HStack borderTop={'1px'} color="black">
           <Flex
@@ -85,5 +87,5 @@ export default function CourseCard({label,title, description } : {label: string,
         </HStack>
       </Box>
     </Center>
-  )
+  );
 }

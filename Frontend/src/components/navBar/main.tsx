@@ -1,5 +1,6 @@
 'use client'
 import logo from '../../assets/logo.svg'
+import './main.css';
 
 import {
   Box,

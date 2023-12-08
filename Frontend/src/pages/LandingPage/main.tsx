@@ -1,5 +1,7 @@
 // import React from 'react';
 
+import ContactPage from "../../components/contactPage/main";
+
 // // SubjectBox component
 // const SubjectBox = ({ subjectName, icon }) => (
 //   <div className="subject-box">
@@ -35,9 +37,16 @@
 
 export function LandingPage() {
 
-  return(
-    <div>
-      <h1> WIP</h1>
-    </div>
-  )
+  return (
+    <Router>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/contact">Contact Us</Link> {}
+        <Link to="/availability">Check Availability</Link> {}
+      </nav>
+      <Route path="/" exact component={dashboard} />
+      <Route path="/contact" component={contactPage} /> {}
+      <Route path="/availability" component={scheduleTab} /> {}
+    </Router>
+  );
 }
