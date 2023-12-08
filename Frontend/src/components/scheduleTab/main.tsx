@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './main.css';
 
 function AvailabilitySchedule() {
   // Example schedule data (you may fetch this from your backend)
