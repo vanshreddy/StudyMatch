@@ -7,7 +7,7 @@ const SearchResult = ({ results }) => {
         <div key={index}>
           <h3>{result.name}</h3>
           <p>Subjects: {result.subjects.join(', ')}</p>
-          {/* Add more details as needed */}
+          {}
         </div>
       ))}
     </div>

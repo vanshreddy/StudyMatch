@@ -13,7 +13,7 @@ const SearchPage = () => {
     setError(null);
 
     try {
-      // Replace with actual API call
+
       const response = await fetch(`your-api-url?search=${searchTerm}`);
       if (!response.ok) {
         throw new Error('Something went wrong');
