@@ -13,7 +13,7 @@ function ContactPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically send the contactInfo to your backend or an email service
+
     console.log(contactInfo);
     alert('Thank you for contacting us!');
   };
