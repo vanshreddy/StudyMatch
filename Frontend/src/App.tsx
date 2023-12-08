@@ -10,6 +10,17 @@ function App() {
         <Route index element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/courses" element={<CoursesPage />} />
+        <Route path="/courses" element={<searchPage />} />
+        <Link to="/privacy-policy">Privacy Policy</Link>
+          <Link to="/terms-of-service">Terms of Service</Link>
+        </nav>
+        <Switch>
+          <Route path="/privacy-policy">
+            <PrivacyPolicy />
+          </Route>
+          <Route path="/terms-of-service">
+            <TermsOfService />
+          </Route>
         {/* <Route path="/dashboard" element={<UserDashboard />} /> */}
       </Route>
     </Routes>
